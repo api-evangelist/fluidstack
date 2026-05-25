@@ -1,0 +1,129 @@
+aid: fluidstack
+name: Fluidstack
+description: >-
+  Fluidstack is an AI cloud platform that builds and operates high-performance,
+  single-tenant GPU clusters for top AI labs, governments, and enterprises.
+  Founded in 2017 out of Oxford University and now headquartered in New York
+  City, Fluidstack manages more than 100,000 GPUs across its global network and
+  has been selected by customers including Anthropic, Meta, Mistral, Poolside,
+  Black Forest Labs, and Character.AI. Its core offering combines on-demand
+  bare-metal GPU clusters (including thousands of NVIDIA H200s with InfiniBand)
+  with managed Kubernetes and managed Slurm orchestration layers, Lighthouse
+  observability, and human-on-call site reliability. Fluidstack exposes a
+  global REST Management API (api.atlas.fluidstack.io/api/v1alpha1) and the
+  fluidctl CLI for managing organizations, projects, regions, clusters,
+  instances, members, invitations, and SSH keys. The platform is GDPR, SOC 2
+  Type 2, and ISO 27001 certified, and was awarded ClusterMAX Gold by
+  SemiAnalysis.
+type: Index
+position: Provider
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - AI
+  - Artificial Intelligence
+  - GPU
+  - Cloud
+  - Compute
+  - Infrastructure
+  - Machine Learning
+  - Foundation Models
+  - Training
+  - Inference
+  - Kubernetes
+  - Slurm
+  - Bare Metal
+  - NVIDIA
+  - InfiniBand
+  - Data Centers
+url: https://raw.githubusercontent.com/api-evangelist/fluidstack/refs/heads/main/apis.yml
+created: '2026-05-25'
+modified: '2026-05-25'
+specificationVersion: '0.20'
+apis:
+  - aid: fluidstack:fluidstack-management-api
+    name: Fluidstack Management API
+    description: >-
+      The global Fluidstack Management API (v1alpha1) for managing GPU cloud
+      resources. Exposes regions, clusters, organizations, members,
+      invitations, instances, and user SSH keys. Uses bearer token
+      authentication, optional X-PROJECT-ID header scoping for instance
+      listings, and is served from https://api.atlas.fluidstack.io/api/v1alpha1.
+    humanURL: https://docs.fluidstack.io/api-reference/management-api
+    baseURL: https://api.atlas.fluidstack.io/api/v1alpha1
+    tags:
+      - AI
+      - GPU
+      - Cloud
+      - Compute
+      - Clusters
+      - Instances
+      - Management
+    properties:
+      - url: https://docs.fluidstack.io/api-reference/management-api
+        type: Documentation
+      - url: openapi/fluidstack-management-api-openapi.yml
+        type: OpenAPI
+      - url: https://docs.fluidstack.io/redocusaurus/management-api.yaml
+        type: OpenAPI
+common:
+  - type: Website
+    url: https://www.fluidstack.io
+  - type: Portal
+    url: https://docs.fluidstack.io
+  - type: Documentation
+    url: https://docs.fluidstack.io/getting-started/overview
+  - type: GettingStarted
+    url: https://docs.fluidstack.io/getting-started/overview
+  - type: Documentation
+    url: https://docs.fluidstack.io/projects/overview
+  - type: Documentation
+    url: https://docs.fluidstack.io/kubernetes/overview
+  - type: Documentation
+    url: https://docs.fluidstack.io/slurm/overview
+  - type: Documentation
+    url: https://docs.fluidstack.io/lighthouse/overview
+  - type: Documentation
+    url: https://docs.fluidstack.io/api-reference/management-api
+  - type: SDK
+    url: https://docs.fluidstack.io/cli-reference/fluidctl
+    name: fluidctl CLI
+  - type: About
+    url: https://www.fluidstack.io/about-us/about
+  - type: Blog
+    url: https://www.fluidstack.io/about-us/blog
+  - type: Careers
+    url: https://www.fluidstack.io/about-us/careers
+  - type: Contact
+    url: https://www.fluidstack.io/contact
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/fluidstack
+  - type: Twitter
+    url: https://twitter.com/fluidstackio
+  - type: Features
+    data:
+      - On-demand single-tenant GPU clusters with isolated hardware, network, and storage
+      - Immediate access to thousands of NVIDIA H200 GPUs with InfiniBand interconnect
+      - Managed Kubernetes — bare-metal container orchestration with NVIDIA operators and health checks
+      - Managed Slurm — bare-metal batch orchestration with user management and topology-aware scheduling
+      - Lighthouse observability and monitoring for GPU clusters
+      - Global Management API (v1alpha1) at api.atlas.fluidstack.io for clusters, instances, regions, members, invitations, and SSH keys
+      - fluidctl command-line tool with auth, capacity, instance-types, instances, kubernetes, projects, slurm commands
+      - Bearer token authentication with optional X-PROJECT-ID header scoping
+      - Custom data centers — selected by Anthropic to deliver capacity in New York and Texas
+      - Demonstrated rapid deployment — 2,500+ GPUs delivered to Poolside in 48 hours
+      - 100,000+ GPUs under management across the network
+      - 15-minute response SLA with direct engineer maintenance and audit logs
+      - GDPR, SOC 2 Type 2, and ISO 27001 certified
+      - ClusterMAX Gold awarded by SemiAnalysis (Nov 2025)
+    sources:
+      - https://www.fluidstack.io
+      - https://docs.fluidstack.io
+      - https://docs.fluidstack.io/api-reference/management-api
+      - https://docs.fluidstack.io/cli-reference/fluidctl
+      - https://www.fluidstack.io/about-us/blog
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com
+    X: apievangelist
+    url: https://apievangelist.com
