@@ -85,7 +85,7 @@ common:
     url: https://docs.fluidstack.io/lighthouse/overview
   - type: Documentation
     url: https://docs.fluidstack.io/api-reference/management-api
-  - type: SDK
+  - type: SDKs
     url: https://docs.fluidstack.io/cli-reference/fluidctl
     name: fluidctl CLI
   - type: About
