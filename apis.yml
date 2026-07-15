@@ -67,6 +67,8 @@ apis:
       - url: https://docs.fluidstack.io/redocusaurus/management-api.yaml
         type: OpenAPI
 common:
+  - type: AgenticAccess
+    url: agentic-access/fluidstack-agentic-access.yml
   - type: DomainSecurity
     url: security/fluidstack-domain-security.yml
   - type: Authentication
