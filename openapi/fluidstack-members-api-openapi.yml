@@ -1,0 +1,168 @@
+openapi: 3.0.0
+info:
+  title: Management Clusters Members API
+  version: v1alpha1
+  description: The global API for Fluidstack
+servers:
+- url: https://api.atlas.fluidstack.io/api/v1alpha1
+security:
+- bearerAuth: []
+tags:
+- name: Members
+paths:
+  /members:
+    get:
+      summary: Get a list of members
+      operationId: ListMembers
+      tags:
+      - Members
+      description: Returns a list of members in the current organization.
+      responses:
+        '200':
+          description: An array of members
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationMember'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /members/{id}:
+    patch:
+      summary: Update a member
+      operationId: UpdateMember
+      tags:
+      - Members
+      description: Updates the a member in the current organization.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique identifier of the member to update.
+        x-go-name: ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  type: string
+                  enum:
+                  - admin
+                  - editor
+                  - viewer
+                  description: The new role to assign to the member (e.g., admin, member, viewer).
+      responses:
+        '200':
+          description: Member updated successfully
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Member not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a member
+      operationId: DeleteMember
+      tags:
+      - Members
+      description: Deletes a member from the current organization by their unique identifier.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The unique identifier of the member to delete.
+        x-go-name: ID
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Member deleted successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Member not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    OrganizationMember:
+      type: object
+      required:
+      - id
+      - name
+      - email
+      - role
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the user.
+          x-go-name: ID
+        name:
+          type: string
+          description: The name of the user.
+        email:
+          type: string
+          description: The email address of the user.
+        role:
+          type: string
+          description: The role of the user in the organization (e.g., admin, member, viewer).
+    Error:
+      type: object
+      description: Error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

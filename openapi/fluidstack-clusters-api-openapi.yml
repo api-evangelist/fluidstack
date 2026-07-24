@@ -1,0 +1,99 @@
+openapi: 3.0.0
+info:
+  title: Management Clusters API
+  version: v1alpha1
+  description: The global API for Fluidstack
+servers:
+- url: https://api.atlas.fluidstack.io/api/v1alpha1
+security:
+- bearerAuth: []
+tags:
+- name: Clusters
+paths:
+  /clusters:
+    get:
+      summary: Get a list of clusters
+      operationId: ListClusters
+      tags:
+      - Clusters
+      description: Returns a list of clusters belonging to the user's organization.
+      responses:
+        '200':
+          description: A JSON array of clusters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cluster'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      description: Error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+    ClusterType:
+      type: string
+      enum:
+      - kubernetes
+      - slurm
+      description: The type of cluster.
+    ClusterHealth:
+      type: string
+      description: Computed health status of a cluster
+      enum:
+      - healthy
+      - stale
+      - offline
+    Cluster:
+      type: object
+      required:
+      - id
+      - name
+      - region
+      - type
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier for the cluster.
+          x-go-name: ID
+        name:
+          type: string
+          description: The name of the cluster.
+        region:
+          type: string
+          description: The region the cluster belongs to.
+        type:
+          $ref: '#/components/schemas/ClusterType'
+        project_id:
+          type: string
+          description: The project ID the cluster belongs to.
+        health:
+          $ref: '#/components/schemas/ClusterHealth'
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the cluster was last updated.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

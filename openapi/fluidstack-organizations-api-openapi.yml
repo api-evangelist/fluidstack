@@ -1,0 +1,73 @@
+openapi: 3.0.0
+info:
+  title: Management Clusters Organizations API
+  version: v1alpha1
+  description: The global API for Fluidstack
+servers:
+- url: https://api.atlas.fluidstack.io/api/v1alpha1
+security:
+- bearerAuth: []
+tags:
+- name: Organizations
+paths:
+  /organizations:
+    get:
+      summary: Get a list of organizations
+      operationId: ListOrganizations
+      tags:
+      - Organizations
+      description: Returns a list of organizations with their details.
+      responses:
+        '200':
+          description: A JSON array of organizations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organization'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Organization:
+      type: object
+      required:
+      - id
+      - name
+      - display_name
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the organization.
+          x-go-name: ID
+        name:
+          type: string
+          description: The name of the organization.
+        display_name:
+          type: string
+          description: The name of the organization.
+    Error:
+      type: object
+      description: Error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

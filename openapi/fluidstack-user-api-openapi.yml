@@ -1,0 +1,135 @@
+openapi: 3.0.0
+info:
+  title: Management Clusters User API
+  version: v1alpha1
+  description: The global API for Fluidstack
+servers:
+- url: https://api.atlas.fluidstack.io/api/v1alpha1
+security:
+- bearerAuth: []
+tags:
+- name: User
+paths:
+  /user/keys:
+    get:
+      summary: List public SSH keys registered for the authenticated user.
+      operationId: ListKeys
+      tags:
+      - User
+      responses:
+        '200':
+          description: A list of public SSH keys.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SSHKey'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Register a public SSH key for the authenticated user.
+      operationId: RegisterKey
+      tags:
+      - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SSHKey'
+      responses:
+        '200':
+          description: SSH key registered successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user/keys/{name}:
+    delete:
+      summary: Deregister an SSH key for the authorized user.
+      operationId: DeregisterKey
+      tags:
+      - User
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the key
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Key deregistered successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      description: Error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+    SSHKey:
+      type: object
+      required:
+      - name
+      - key
+      properties:
+        name:
+          type: string
+          description: The name of the key.
+          example: key-1
+        key:
+          type: string
+          description: The key.
+          example: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEaSkijEWFbnjixzWRw3u2spZZaeVeWO5/ymySevCvXh
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

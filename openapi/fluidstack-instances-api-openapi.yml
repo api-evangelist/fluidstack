@@ -1,0 +1,186 @@
+openapi: 3.0.0
+info:
+  title: Management Clusters Instances API
+  version: v1alpha1
+  description: The global API for Fluidstack
+servers:
+- url: https://api.atlas.fluidstack.io/api/v1alpha1
+security:
+- bearerAuth: []
+tags:
+- name: Instances
+paths:
+  /instances:
+    get:
+      summary: List all instances
+      operationId: ListInstances
+      tags:
+      - Instances
+      description: Returns a list of all instances belonging to the user's organization. Optionally filter by project.
+      parameters:
+      - name: X-PROJECT-ID
+        in: header
+        required: false
+        description: Filter instances by project ID
+        x-go-name: ProjectID
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A list of instances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Instance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /instances/{id}:
+    get:
+      summary: Get an instance
+      operationId: GetInstance
+      tags:
+      - Instances
+      description: Returns details of a specific instance.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Unique identifier of the instance
+        x-go-name: ID
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Instance details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Instance not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Instance:
+      type: object
+      description: Machine instance
+      required:
+      - id
+      - name
+      - type
+      - state
+      - ip
+      - image
+      - preemptible
+      - ephemeral
+      - tags
+      - project_id
+      - region
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the instance
+          x-go-name: ID
+        name:
+          type: string
+          description: Name of the instance
+        type:
+          type: string
+          description: Instance type
+        state:
+          $ref: '#/components/schemas/InstanceState'
+        ip:
+          type: string
+          nullable: true
+          description: Private IP address of the instance
+          x-go-name: IP
+        image:
+          type: string
+          description: Operating system image for the instance
+        preemptible:
+          type: boolean
+          description: Whether the instance is preemptible
+        ephemeral:
+          type: boolean
+          description: Whether the instance is ephemeral
+        tags:
+          type: object
+          description: Tags for the instance
+          additionalProperties:
+            type: string
+        project_id:
+          type: string
+          description: The project ID the instance belongs to
+        region:
+          type: string
+          description: The region the instance belongs to
+        health:
+          $ref: '#/components/schemas/InstanceHealth'
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the instance was last updated
+    Error:
+      type: object
+      description: Error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+    InstanceHealth:
+      type: string
+      description: Computed health status of an instance
+      enum:
+      - healthy
+      - stale
+      - attention
+      - offline
+    InstanceState:
+      type: string
+      description: Possible states of a machine instance
+      enum:
+      - creating
+      - starting
+      - running
+      - stopping
+      - stopped
+      - deleting
+      - out-of-stock
+      - error
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

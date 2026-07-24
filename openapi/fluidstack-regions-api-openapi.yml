@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  title: Management Clusters Regions API
+  version: v1alpha1
+  description: The global API for Fluidstack
+servers:
+- url: https://api.atlas.fluidstack.io/api/v1alpha1
+security:
+- bearerAuth: []
+tags:
+- name: Regions
+paths:
+  /regions:
+    get:
+      summary: Get a list of regions
+      operationId: ListRegions
+      tags:
+      - Regions
+      description: Returns a list of regions with their details.
+      responses:
+        '200':
+          description: A JSON array of regions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Region'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Region:
+      type: object
+      required:
+      - name
+      - url
+      properties:
+        name:
+          type: string
+          description: The name of the region.
+        url:
+          type: string
+          description: The URL of the region API.
+    Error:
+      type: object
+      description: Error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
