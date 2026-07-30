@@ -16,9 +16,21 @@ description: >-
   Type 2, and ISO 27001 certified, and was awarded ClusterMAX Gold by
   SemiAnalysis.
 type: Index
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Provider
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/fluidstack.png
 tags:
   - AI
   - Artificial Intelligence
@@ -41,31 +53,90 @@ created: '2026-05-25'
 modified: '2026-05-25'
 specificationVersion: '0.20'
 apis:
-  - aid: fluidstack:fluidstack-management-api
-    name: Fluidstack Management API
-    description: >-
-      The global Fluidstack Management API (v1alpha1) for managing GPU cloud
-      resources. Exposes regions, clusters, organizations, members,
-      invitations, instances, and user SSH keys. Uses bearer token
-      authentication, optional X-PROJECT-ID header scoping for instance
-      listings, and is served from https://api.atlas.fluidstack.io/api/v1alpha1.
-    humanURL: https://docs.fluidstack.io/api-reference/management-api
-    baseURL: https://api.atlas.fluidstack.io/api/v1alpha1
-    tags:
-      - AI
-      - GPU
-      - Cloud
-      - Compute
-      - Clusters
-      - Instances
-      - Management
-    properties:
-      - url: https://docs.fluidstack.io/api-reference/management-api
-        type: Documentation
-      - url: openapi/fluidstack-management-api-openapi.yml
-        type: OpenAPI
-      - url: https://docs.fluidstack.io/redocusaurus/management-api.yaml
-        type: OpenAPI
+- aid: fluidstack:fluidstack-clusters-api
+  name: Fluidstack Clusters API
+  description: The Clusters API from Fluidstack — 1 operation(s) for clusters.
+  humanURL: https://docs.fluidstack.io/api-reference/management-api
+  baseURL: https://api.atlas.fluidstack.io/api/v1alpha1
+  tags:
+  - Clusters
+  properties:
+  - type: OpenAPI
+    url: openapi/fluidstack-clusters-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fluidstack.io/api-reference/management-api
+- aid: fluidstack:fluidstack-instances-api
+  name: Fluidstack Instances API
+  description: The Instances API from Fluidstack — 2 operation(s) for instances.
+  humanURL: https://docs.fluidstack.io/api-reference/management-api
+  baseURL: https://api.atlas.fluidstack.io/api/v1alpha1
+  tags:
+  - Instances
+  properties:
+  - type: OpenAPI
+    url: openapi/fluidstack-instances-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fluidstack.io/api-reference/management-api
+- aid: fluidstack:fluidstack-invitations-api
+  name: Fluidstack Invitations API
+  description: The Invitations API from Fluidstack — 2 operation(s) for invitations.
+  humanURL: https://docs.fluidstack.io/api-reference/management-api
+  baseURL: https://api.atlas.fluidstack.io/api/v1alpha1
+  tags:
+  - Invitations
+  properties:
+  - type: OpenAPI
+    url: openapi/fluidstack-invitations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fluidstack.io/api-reference/management-api
+- aid: fluidstack:fluidstack-members-api
+  name: Fluidstack Members API
+  description: The Members API from Fluidstack — 2 operation(s) for members.
+  humanURL: https://docs.fluidstack.io/api-reference/management-api
+  baseURL: https://api.atlas.fluidstack.io/api/v1alpha1
+  tags:
+  - Members
+  properties:
+  - type: OpenAPI
+    url: openapi/fluidstack-members-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fluidstack.io/api-reference/management-api
+- aid: fluidstack:fluidstack-organizations-api
+  name: Fluidstack Organizations API
+  description: The Organizations API from Fluidstack — 1 operation(s) for organizations.
+  humanURL: https://docs.fluidstack.io/api-reference/management-api
+  baseURL: https://api.atlas.fluidstack.io/api/v1alpha1
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/fluidstack-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fluidstack.io/api-reference/management-api
+- aid: fluidstack:fluidstack-regions-api
+  name: Fluidstack Regions API
+  description: The Regions API from Fluidstack — 1 operation(s) for regions.
+  humanURL: https://docs.fluidstack.io/api-reference/management-api
+  baseURL: https://api.atlas.fluidstack.io/api/v1alpha1
+  tags:
+  - Regions
+  properties:
+  - type: OpenAPI
+    url: openapi/fluidstack-regions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fluidstack.io/api-reference/management-api
+- aid: fluidstack:fluidstack-user-api
+  name: Fluidstack User API
+  description: The User API from Fluidstack — 2 operation(s) for user.
+  humanURL: https://docs.fluidstack.io/api-reference/management-api
+  baseURL: https://api.atlas.fluidstack.io/api/v1alpha1
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/fluidstack-user-api-openapi.yml
+  - type: Documentation
+    url: https://docs.fluidstack.io/api-reference/management-api
 common:
   - type: AgenticAccess
     url: agentic-access/fluidstack-agentic-access.yml
