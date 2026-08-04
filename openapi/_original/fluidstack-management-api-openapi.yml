@@ -1,0 +1,743 @@
+openapi: 3.0.0
+info:
+  title: Management API
+  version: v1alpha1
+  description: The global API for Fluidstack
+servers:
+  - url: https://api.atlas.fluidstack.io/api/v1alpha1
+security:
+  - bearerAuth: []
+paths:
+  /regions:
+    get:
+      summary: Get a list of regions
+      operationId: ListRegions
+      tags:
+        - Regions
+      description: Returns a list of regions with their details.
+      responses:
+        '200':
+          description: A JSON array of regions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Region'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /clusters:
+    get:
+      summary: Get a list of clusters
+      operationId: ListClusters
+      tags:
+        - Clusters
+      description: Returns a list of clusters belonging to the user's organization.
+      responses:
+        '200':
+          description: A JSON array of clusters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cluster'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /organizations:
+    get:
+      summary: Get a list of organizations
+      operationId: ListOrganizations
+      tags:
+        - Organizations
+      description: Returns a list of organizations with their details.
+      responses:
+        '200':
+          description: A JSON array of organizations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organization'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /members:
+    get:
+      summary: Get a list of members
+      operationId: ListMembers
+      tags:
+        - Members
+      description: Returns a list of members in the current organization.
+      responses:
+        '200':
+          description: An array of members
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationMember'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /members/{id}:
+    patch:
+      summary: Update a member
+      operationId: UpdateMember
+      tags:
+        - Members
+      description: Updates the a member in the current organization.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the member to update.
+          x-go-name: ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  type: string
+                  enum:
+                    - admin
+                    - editor
+                    - viewer
+                  description: >-
+                    The new role to assign to the member (e.g., admin, member,
+                    viewer).
+      responses:
+        '200':
+          description: Member updated successfully
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Member not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a member
+      operationId: DeleteMember
+      tags:
+        - Members
+      description: >-
+        Deletes a member from the current organization by their unique
+        identifier.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the member to delete.
+          x-go-name: ID
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Member deleted successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Member not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /invitations:
+    post:
+      summary: Invite a user to an organization
+      operationId: CreateInvitation
+      tags:
+        - Invitations
+      description: Sends an invitation to a user to join the current organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+              properties:
+                email:
+                  type: string
+                  description: The email address of the user to invite.
+                role:
+                  type: string
+                  description: >-
+                    The role to assign to the user (e.g., admin, member,
+                    viewer).
+      responses:
+        '201':
+          description: Invitation sent successfully
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: Get invitations for an organization
+      operationId: ListInvitations
+      tags:
+        - Invitations
+      description: Retrieves a list of invitations for the current organization.
+      responses:
+        '200':
+          description: A JSON array of invitations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Invitation'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /invitations/{id}:
+    delete:
+      summary: Delete an invitation
+      operationId: DeleteInvitation
+      tags:
+        - Invitations
+      description: Deletes an invitation by its unique identifier.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The unique identifier of the invitation to delete.
+          x-go-name: ID
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Invitation deleted successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Invitation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /instances:
+    get:
+      summary: List all instances
+      operationId: ListInstances
+      tags:
+        - Instances
+      description: >-
+        Returns a list of all instances belonging to the user's organization.
+        Optionally filter by project.
+      parameters:
+        - name: X-PROJECT-ID
+          in: header
+          required: false
+          description: Filter instances by project ID
+          x-go-name: ProjectID
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: A list of instances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Instance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /instances/{id}:
+    get:
+      summary: Get an instance
+      operationId: GetInstance
+      tags:
+        - Instances
+      description: Returns details of a specific instance.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Unique identifier of the instance
+          x-go-name: ID
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Instance details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Instance not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user/keys:
+    get:
+      summary: List public SSH keys registered for the authenticated user.
+      operationId: ListKeys
+      tags:
+        - User
+      responses:
+        '200':
+          description: A list of public SSH keys.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SSHKey'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Register a public SSH key for the authenticated user.
+      operationId: RegisterKey
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SSHKey'
+      responses:
+        '200':
+          description: SSH key registered successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user/keys/{name}:
+    delete:
+      summary: Deregister an SSH key for the authorized user.
+      operationId: DeregisterKey
+      tags:
+        - User
+      parameters:
+        - name: name
+          in: path
+          required: true
+          description: Name of the key
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Key deregistered successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    OrganizationMember:
+      type: object
+      required:
+        - id
+        - name
+        - email
+        - role
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the user.
+          x-go-name: ID
+        name:
+          type: string
+          description: The name of the user.
+        email:
+          type: string
+          description: The email address of the user.
+        role:
+          type: string
+          description: >-
+            The role of the user in the organization (e.g., admin, member,
+            viewer).
+    Organization:
+      type: object
+      required:
+        - id
+        - name
+        - display_name
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the organization.
+          x-go-name: ID
+        name:
+          type: string
+          description: The name of the organization.
+        display_name:
+          type: string
+          description: The name of the organization.
+    Invitation:
+      type: object
+      required:
+        - id
+        - email
+        - role
+      properties:
+        id:
+          type: string
+          description: The invitation id.
+          x-go-name: ID
+        email:
+          type: string
+          description: The email address of the user being invited.
+        role:
+          type: string
+          description: >-
+            The role assigned to the user being invited (e.g., admin, member,
+            viewer).
+    Region:
+      type: object
+      required:
+        - name
+        - url
+      properties:
+        name:
+          type: string
+          description: The name of the region.
+        url:
+          type: string
+          description: The URL of the region API.
+    Cluster:
+      type: object
+      required:
+        - id
+        - name
+        - region
+        - type
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The unique identifier for the cluster.
+          x-go-name: ID
+        name:
+          type: string
+          description: The name of the cluster.
+        region:
+          type: string
+          description: The region the cluster belongs to.
+        type:
+          $ref: '#/components/schemas/ClusterType'
+        project_id:
+          type: string
+          description: The project ID the cluster belongs to.
+        health:
+          $ref: '#/components/schemas/ClusterHealth'
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the cluster was last updated.
+    ClusterHealth:
+      type: string
+      description: Computed health status of a cluster
+      enum:
+        - healthy
+        - stale
+        - offline
+    ClusterType:
+      type: string
+      enum:
+        - kubernetes
+        - slurm
+      description: The type of cluster.
+    SSHKey:
+      type: object
+      required:
+        - name
+        - key
+      properties:
+        name:
+          type: string
+          description: The name of the key.
+          example: key-1
+        key:
+          type: string
+          description: The key.
+          example: >-
+            ssh-ed25519
+            AAAAC3NzaC1lZDI1NTE5AAAAIEaSkijEWFbnjixzWRw3u2spZZaeVeWO5/ymySevCvXh
+    Error:
+      type: object
+      description: Error response
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+    Relation:
+      type: object
+      required:
+        - org_id
+        - role
+      properties:
+        org_id:
+          type: string
+          description: The organization ID for the relation.
+          x-go-name: OrgID
+        role:
+          type: string
+          description: The role associated with the organization.
+    Instance:
+      type: object
+      description: Machine instance
+      required:
+        - id
+        - name
+        - type
+        - state
+        - ip
+        - image
+        - preemptible
+        - ephemeral
+        - tags
+        - project_id
+        - region
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the instance
+          x-go-name: ID
+        name:
+          type: string
+          description: Name of the instance
+        type:
+          type: string
+          description: Instance type
+        state:
+          $ref: '#/components/schemas/InstanceState'
+        ip:
+          type: string
+          nullable: true
+          description: Private IP address of the instance
+          x-go-name: IP
+        image:
+          type: string
+          description: Operating system image for the instance
+        preemptible:
+          type: boolean
+          description: Whether the instance is preemptible
+        ephemeral:
+          type: boolean
+          description: Whether the instance is ephemeral
+        tags:
+          type: object
+          description: Tags for the instance
+          additionalProperties:
+            type: string
+        project_id:
+          type: string
+          description: The project ID the instance belongs to
+        region:
+          type: string
+          description: The region the instance belongs to
+        health:
+          $ref: '#/components/schemas/InstanceHealth'
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the instance was last updated
+    InstanceState:
+      type: string
+      description: Possible states of a machine instance
+      enum:
+        - creating
+        - starting
+        - running
+        - stopping
+        - stopped
+        - deleting
+        - out-of-stock
+        - error
+    InstanceHealth:
+      type: string
+      description: Computed health status of an instance
+      enum:
+        - healthy
+        - stale
+        - attention
+        - offline

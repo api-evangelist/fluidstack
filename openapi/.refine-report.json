@@ -1,0 +1,26 @@
+{
+  "provider": "fluidstack",
+  "sources": [
+    "fluidstack-clusters-api-openapi.yml",
+    "fluidstack-instances-api-openapi.yml",
+    "fluidstack-invitations-api-openapi.yml",
+    "fluidstack-members-api-openapi.yml",
+    "fluidstack-organizations-api-openapi.yml",
+    "fluidstack-regions-api-openapi.yml",
+    "fluidstack-user-api-openapi.yml"
+  ],
+  "outputs": [
+    "fluidstack-clusters-api-openapi.yml",
+    "fluidstack-instances-api-openapi.yml",
+    "fluidstack-invitations-api-openapi.yml",
+    "fluidstack-members-api-openapi.yml",
+    "fluidstack-organizations-api-openapi.yml",
+    "fluidstack-regions-api-openapi.yml",
+    "fluidstack-user-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
