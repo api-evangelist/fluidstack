@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Management Clusters Members API",
+    "version": "v1alpha1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Members",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.atlas.fluidstack.io/api/v1alpha1/members"
+          },
+          "docs": "Returns a list of members in the current organization."
+        },
+        {
+          "info": {
+            "name": "Update a member",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.atlas.fluidstack.io/api/v1alpha1/members/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the member to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the a member in the current organization."
+        },
+        {
+          "info": {
+            "name": "Delete a member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.atlas.fluidstack.io/api/v1alpha1/members/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the member to delete."
+              }
+            ]
+          },
+          "docs": "Deletes a member from the current organization by their unique identifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

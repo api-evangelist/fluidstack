@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Management Clusters Instances API",
+    "version": "v1alpha1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Instances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.atlas.fluidstack.io/api/v1alpha1/instances",
+            "headers": [
+              {
+                "name": "X-PROJECT-ID",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Returns a list of all instances belonging to the user's organization. Optionally filter by project."
+        },
+        {
+          "info": {
+            "name": "Get an instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.atlas.fluidstack.io/api/v1alpha1/instances/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the instance"
+              }
+            ]
+          },
+          "docs": "Returns details of a specific instance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

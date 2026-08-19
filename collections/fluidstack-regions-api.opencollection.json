@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Management Clusters Regions API",
+    "version": "v1alpha1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Regions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of regions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.atlas.fluidstack.io/api/v1alpha1/regions"
+          },
+          "docs": "Returns a list of regions with their details."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
