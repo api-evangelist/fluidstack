@@ -1,0 +1,34 @@
+slug: fluidstack
+provider: Fluidstack
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Education
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Clusters
+  spec_file: fluidstack-clusters-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: 'GET /clusters ListClusters Get a list of clusters; schemas: Cluster, ClusterType, ClusterHealth'
+  reason: Fluidstack is a GPU cloud provider; this tag exposes inventory and health of compute clusters,
+    which is compute/cloud infrastructure management. Cross-industry IT is the honest reading for a devtool/infrastructure
+    vendor.
+- tag: Instances
+  spec_file: fluidstack-instances-api-openapi.yml
+  capability_id: BC-600.50
+  capability_id_l1: BC-600
+  capability_name: IT Infrastructure Management
+  confidence: 0.75
+  evidence: 'GET /instances ListInstances List all instances; schemas: Instance, InstanceHealth, InstanceState'
+  reason: Listing and inspecting GPU compute instances with health and state — cloud compute infrastructure
+    management.

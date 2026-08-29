@@ -169,6 +169,9 @@ apis:
   - type: Documentation
     url: https://docs.fluidstack.io/api-reference/management-api
 common:
+  - type: CapabilityMap
+    url: capabilities/fluidstack-capability-edges.yml
+    name: Fluidstack Business Capability Map
   - type: AgenticAccess
     url: agentic-access/fluidstack-agentic-access.yml
   - type: DomainSecurity
