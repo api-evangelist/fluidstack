@@ -1,13 +1,7 @@
 {
   "provider": "fluidstack",
   "sources": [
-    "fluidstack-clusters-api-openapi.yml",
-    "fluidstack-instances-api-openapi.yml",
-    "fluidstack-invitations-api-openapi.yml",
-    "fluidstack-members-api-openapi.yml",
-    "fluidstack-organizations-api-openapi.yml",
-    "fluidstack-regions-api-openapi.yml",
-    "fluidstack-user-api-openapi.yml"
+    "_original/fluidstack-management-api-openapi.yml"
   ],
   "outputs": [
     "fluidstack-clusters-api-openapi.yml",
@@ -21,6 +15,25 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "fluidstack-management-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "fluidstack-management-api-openapi.yml: declared missing tag: Clusters",
+    "fluidstack-management-api-openapi.yml: declared missing tag: Instances",
+    "fluidstack-management-api-openapi.yml: declared missing tag: Invitations",
+    "fluidstack-management-api-openapi.yml: declared missing tag: Members",
+    "fluidstack-management-api-openapi.yml: declared missing tag: Organizations",
+    "fluidstack-management-api-openapi.yml: declared missing tag: Regions",
+    "fluidstack-management-api-openapi.yml: declared missing tag: User",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "fluidstack-clusters-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fluidstack-instances-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fluidstack-invitations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fluidstack-members-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fluidstack-organizations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fluidstack-regions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fluidstack-user-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Management Clusters Instances API
+  title: Management Instances API
   version: v1alpha1
   description: The global API for Fluidstack
 servers:
@@ -90,6 +90,18 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    InstanceState:
+      type: string
+      description: Possible states of a machine instance
+      enum:
+      - creating
+      - starting
+      - running
+      - stopping
+      - stopped
+      - deleting
+      - out-of-stock
+      - error
     Instance:
       type: object
       description: Machine instance
@@ -120,8 +132,9 @@ components:
         state:
           $ref: '#/components/schemas/InstanceState'
         ip:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Private IP address of the instance
           x-go-name: IP
         image:
@@ -150,6 +163,14 @@ components:
           type: string
           format: date-time
           description: Timestamp when the instance was last updated
+    InstanceHealth:
+      type: string
+      description: Computed health status of an instance
+      enum:
+      - healthy
+      - stale
+      - attention
+      - offline
     Error:
       type: object
       description: Error response
@@ -159,26 +180,6 @@ components:
         message:
           type: string
           description: Human-readable error message
-    InstanceHealth:
-      type: string
-      description: Computed health status of an instance
-      enum:
-      - healthy
-      - stale
-      - attention
-      - offline
-    InstanceState:
-      type: string
-      description: Possible states of a machine instance
-      enum:
-      - creating
-      - starting
-      - running
-      - stopping
-      - stopped
-      - deleting
-      - out-of-stock
-      - error
   securitySchemes:
     bearerAuth:
       type: http
