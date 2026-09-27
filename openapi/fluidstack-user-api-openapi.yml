@@ -105,6 +105,15 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      description: Error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
     SSHKey:
       type: object
       required:
@@ -119,15 +128,6 @@ components:
           type: string
           description: The key.
           example: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEaSkijEWFbnjixzWRw3u2spZZaeVeWO5/ymySevCvXh
-    Error:
-      type: object
-      description: Error response
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
   securitySchemes:
     bearerAuth:
       type: http

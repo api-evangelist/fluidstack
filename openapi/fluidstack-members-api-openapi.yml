@@ -131,6 +131,15 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      description: Error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
     OrganizationMember:
       type: object
       required:
@@ -152,15 +161,6 @@ components:
         role:
           type: string
           description: The role of the user in the organization (e.g., admin, member, viewer).
-    Error:
-      type: object
-      description: Error response
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
   securitySchemes:
     bearerAuth:
       type: http

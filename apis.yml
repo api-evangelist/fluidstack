@@ -49,7 +49,7 @@ tags:
   - Cloud
   - Compute
   - Infrastructure
-  - Machine-Learning
+  - Machine Learning
   - Foundation Models
   - Training
   - Inference
@@ -58,7 +58,7 @@ tags:
   - Bare Metal
   - NVIDIA
   - InfiniBand
-  - Data-Center
+  - Data Center
 tags_raw:
   - AI
   - Artificial Intelligence
@@ -76,6 +76,8 @@ tags_raw:
   - NVIDIA
   - InfiniBand
   - Data Centers
+  - Machine-Learning
+  - Data-Center
 url: https://raw.githubusercontent.com/api-evangelist/fluidstack/refs/heads/main/apis.yml
 created: '2026-05-25'
 modified: '2026-05-25'
