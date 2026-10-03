@@ -124,15 +124,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      description: Error response
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
     Invitation:
       type: object
       required:
@@ -150,6 +141,15 @@ components:
         role:
           type: string
           description: The role assigned to the user being invited (e.g., admin, member, viewer).
+    Error:
+      type: object
+      description: Error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
   securitySchemes:
     bearerAuth:
       type: http

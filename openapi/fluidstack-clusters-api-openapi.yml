@@ -40,6 +40,13 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    ClusterHealth:
+      type: string
+      description: Computed health status of a cluster
+      enum:
+      - healthy
+      - stale
+      - offline
     Cluster:
       type: object
       required:
@@ -70,6 +77,12 @@ components:
           type: string
           format: date-time
           description: Timestamp when the cluster was last updated.
+    ClusterType:
+      type: string
+      enum:
+      - kubernetes
+      - slurm
+      description: The type of cluster.
     Error:
       type: object
       description: Error response
@@ -79,19 +92,6 @@ components:
         message:
           type: string
           description: Human-readable error message
-    ClusterHealth:
-      type: string
-      description: Computed health status of a cluster
-      enum:
-      - healthy
-      - stale
-      - offline
-    ClusterType:
-      type: string
-      enum:
-      - kubernetes
-      - slurm
-      description: The type of cluster.
   securitySchemes:
     bearerAuth:
       type: http

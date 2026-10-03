@@ -90,6 +90,35 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    InstanceHealth:
+      type: string
+      description: Computed health status of an instance
+      enum:
+      - healthy
+      - stale
+      - attention
+      - offline
+    InstanceState:
+      type: string
+      description: Possible states of a machine instance
+      enum:
+      - creating
+      - starting
+      - running
+      - stopping
+      - stopped
+      - deleting
+      - out-of-stock
+      - error
+    Error:
+      type: object
+      description: Error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
     Instance:
       type: object
       description: Machine instance
@@ -151,35 +180,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the instance was last updated
-    Error:
-      type: object
-      description: Error response
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-    InstanceState:
-      type: string
-      description: Possible states of a machine instance
-      enum:
-      - creating
-      - starting
-      - running
-      - stopping
-      - stopped
-      - deleting
-      - out-of-stock
-      - error
-    InstanceHealth:
-      type: string
-      description: Computed health status of an instance
-      enum:
-      - healthy
-      - stale
-      - attention
-      - offline
   securitySchemes:
     bearerAuth:
       type: http

@@ -40,15 +40,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Error:
-      type: object
-      description: Error response
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
     Organization:
       type: object
       required:
@@ -66,6 +57,15 @@ components:
         display_name:
           type: string
           description: The name of the organization.
+    Error:
+      type: object
+      description: Error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
   securitySchemes:
     bearerAuth:
       type: http
