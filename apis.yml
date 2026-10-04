@@ -43,6 +43,9 @@ accessModel:
 position: Producing
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/fluidstack.png
+x-docs-platform: docusaurus
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 tags:
   - Artificial Intelligence
   - GPU
@@ -59,6 +62,7 @@ tags:
   - NVIDIA
   - InfiniBand
   - Data Center
+  - Model Training
 tags_raw:
   - AI
   - Artificial Intelligence
@@ -78,6 +82,7 @@ tags_raw:
   - Data Centers
   - Machine-Learning
   - Data-Center
+  - Model Training
 url: https://raw.githubusercontent.com/api-evangelist/fluidstack/refs/heads/main/apis.yml
 created: '2026-05-25'
 modified: '2026-05-25'
