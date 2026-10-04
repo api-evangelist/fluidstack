@@ -40,6 +40,15 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Error:
+      type: object
+      description: Error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
     Region:
       type: object
       required:
@@ -52,15 +61,6 @@ components:
         url:
           type: string
           description: The URL of the region API.
-    Error:
-      type: object
-      description: Error response
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
   securitySchemes:
     bearerAuth:
       type: http
