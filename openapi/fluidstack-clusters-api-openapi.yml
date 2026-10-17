@@ -40,6 +40,22 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    ClusterHealth:
+      type: string
+      description: Computed health status of a cluster
+      enum:
+      - healthy
+      - stale
+      - offline
+    Error:
+      type: object
+      description: Error response
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
     Cluster:
       type: object
       required:
@@ -70,22 +86,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the cluster was last updated.
-    ClusterHealth:
-      type: string
-      description: Computed health status of a cluster
-      enum:
-      - healthy
-      - stale
-      - offline
-    Error:
-      type: object
-      description: Error response
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
     ClusterType:
       type: string
       enum:
